@@ -1,0 +1,128 @@
+:root{
+  --ink-900:#16202B;
+  --ink-600:#3E4C57;
+  --paper-50:#ECEEEB;
+  --paper-100:#F7F8F6;
+  --line:#C7CCC5;
+  --accent-osint:#2C6E63;
+  --accent-forensic:#5B4B8A;
+  --accent-pentest:#A5432A;
+  --accent-blueteam:#2F5C8A;
+  --accent-osint-soft:#E4EEEC;
+  --accent-forensic-soft:#EBE8F2;
+  --accent-pentest-soft:#F3E6E1;
+  --accent-blueteam-soft:#E6ECF3;
+  --ok:#2C6E63;
+  --warn:#A5432A;
+  --unset:#8A9089;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --ink-900:#E7E9E4;
+    --ink-600:#AEB7B2;
+    --paper-50:#121820;
+    --paper-100:#1A222B;
+    --line:#333E48;
+    --accent-osint:#57B3A4;
+    --accent-forensic:#A99BD6;
+    --accent-pentest:#E08B63;
+    --accent-blueteam:#7AA6D6;
+    --accent-osint-soft:#1B2E2B;
+    --accent-forensic-soft:#251F35;
+    --accent-pentest-soft:#301F19;
+    --accent-blueteam-soft:#1B2733;
+    --ok:#57B3A4;
+    --warn:#E08B63;
+    --unset:#5C645F;
+  }
+}
+
+*{box-sizing:border-box;}
+body{
+  margin:0;
+  background:var(--paper-50);
+  color:var(--ink-900);
+  font-family:-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  line-height:1.5;
+}
+
+.masthead{max-width:1200px;margin:0 auto;padding:2.4rem 1.5rem 1rem;}
+.eyebrow{
+  font-family:ui-monospace,"SFMono-Regular","IBM Plex Mono",Consolas,monospace;
+  font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-600);
+}
+h1{
+  font-family:ui-serif,Georgia,"Iowan Old Style",serif;
+  font-size:clamp(1.6rem,3.5vw,2.2rem);
+  font-weight:600;margin:.3rem 0 0;
+}
+
+.grid{
+  max-width:1200px;margin:0 auto;padding:1rem 1.5rem 3rem;
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(420px,1fr));gap:1.2rem;
+}
+
+.card{
+  border:1px solid var(--line);border-radius:6px;background:var(--paper-100);
+  display:flex;flex-direction:column;min-height:220px;
+}
+.card-head{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1rem 1.2rem .3rem;
+}
+.card-head h2{
+  font-family:ui-serif,Georgia,serif;font-size:1.15rem;font-weight:600;margin:0;
+}
+.card-osint .card-head h2{color:var(--accent-osint);}
+.card-forensics .card-head h2{color:var(--accent-forensic);}
+.card-pentest .card-head h2{color:var(--accent-pentest);}
+.card-blueteam .card-head h2{color:var(--accent-blueteam);}
+
+.card-sub{
+  margin:0 1.2rem .8rem;font-size:.8rem;color:var(--ink-600);
+  font-family:ui-monospace,monospace;letter-spacing:.02em;
+}
+
+.badge{
+  font-family:ui-monospace,monospace;font-size:.68rem;letter-spacing:.06em;
+  text-transform:uppercase;padding:.2rem .55rem;border-radius:3px;
+  border:1px solid var(--line);color:var(--ink-600);white-space:nowrap;
+}
+.badge[data-state="ok"]{color:var(--ok);border-color:var(--ok);}
+.badge[data-state="warn"]{color:var(--warn);border-color:var(--warn);}
+.badge[data-state="unset"]{color:var(--unset);border-color:var(--line);}
+
+.card-body{padding:0 1.2rem 1.2rem;font-size:.88rem;overflow-x:auto;}
+
+table{border-collapse:collapse;width:100%;font-size:.84rem;}
+th{
+  text-align:left;font-family:ui-monospace,monospace;font-size:.68rem;
+  letter-spacing:.05em;text-transform:uppercase;color:var(--ink-600);
+  font-weight:500;padding:.35rem .5rem .4rem 0;border-bottom:1px solid var(--line);
+  white-space:nowrap;
+}
+td{padding:.45rem .5rem .45rem 0;border-bottom:1px solid var(--line);vertical-align:top;}
+tr:last-child td{border-bottom:none;}
+
+.pill{
+  font-family:ui-monospace,monospace;font-size:.7rem;padding:.12rem .45rem;
+  border-radius:3px;border:1px solid var(--line);white-space:nowrap;
+}
+.pill-ok{color:var(--ok);border-color:var(--ok);}
+.pill-warn{color:var(--warn);border-color:var(--warn);}
+.pill-neutral{color:var(--ink-600);}
+
+.empty-state{color:var(--ink-600);font-style:italic;font-size:.85rem;}
+.error-state{color:var(--warn);font-size:.82rem;font-family:ui-monospace,monospace;}
+
+.step-list{display:flex;flex-wrap:wrap;gap:.3rem;}
+.step-chip{
+  font-family:ui-monospace,monospace;font-size:.68rem;padding:.15rem .45rem;
+  border-radius:3px;border:1px solid var(--line);
+}
+
+footer{
+  max-width:1200px;margin:0 auto;padding:1rem 1.5rem 2.5rem;
+  display:flex;justify-content:space-between;
+  font-family:ui-monospace,monospace;font-size:.72rem;color:var(--ink-600);
+}

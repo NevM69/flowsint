@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Centrale — Dashboard</title>
+<link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+  <header class="masthead">
+    <span class="eyebrow">Centrale de renseignement</span>
+    <h1>Vue d'ensemble</h1>
+  </header>
+
+  <main class="grid">
+    <section class="card card-osint" id="card-osint">
+      <div class="card-head">
+        <h2>OSINT</h2>
+        <span class="badge" data-badge>—</span>
+      </div>
+      <p class="card-sub">Investigations Flowsint</p>
+      <div class="card-body" data-body>Chargement…</div>
+    </section>
+
+    <section class="card card-forensics" id="card-forensics">
+      <div class="card-head">
+        <h2>Forensique</h2>
+        <span class="badge" data-badge>—</span>
+      </div>
+      <p class="card-sub">Cases IPED / Autopsy</p>
+      <div class="card-body" data-body>Chargement…</div>
+    </section>
+
+    <section class="card card-pentest" id="card-pentest">
+      <div class="card-head">
+        <h2>Pentest</h2>
+        <span class="badge" data-badge>—</span>
+      </div>
+      <p class="card-sub">Rapports du labo</p>
+      <div class="card-body" data-body>Chargement…</div>
+    </section>
+
+    <section class="card card-blueteam" id="card-blueteam">
+      <div class="card-head">
+        <h2>Blue team</h2>
+        <span class="badge" data-badge>—</span>
+      </div>
+      <p class="card-sub">File de pivots Orbis</p>
+      <div class="card-body" data-body>Chargement…</div>
+    </section>
+  </main>
+
+  <footer>
+    <span>Rafraîchi automatiquement toutes les 30s.</span>
+    <span id="last-refresh"></span>
+  </footer>
+
+  <script src="/app.js"></script>
+</body>
+</html>
