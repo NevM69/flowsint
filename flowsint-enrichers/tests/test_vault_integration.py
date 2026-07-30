@@ -8,6 +8,8 @@ from flowsint_enrichers.email.to_domains import EmailToDomainsEnricher
 from flowsint_enrichers.crypto.to_nfts import CryptoWalletAddressToNFTs
 from flowsint_enrichers.crypto.to_transactions import CryptoWalletAddressToTransactions
 from flowsint_enrichers.email.to_leaks import EmailToBreachesEnricher
+from flowsint_enrichers.organization.to_pappers import OrgToPappersEnricher
+from flowsint_enrichers.username.to_osintgram import UsernameToOsintgram
 
 
 @pytest.fixture
@@ -164,6 +166,78 @@ class TestHIBPEnrichersVaultIntegration:
 
         # Verify the key is accessible via get_secret
         assert enricher.get_secret("HIBP_API_KEY") == api_key
+
+
+class TestPappersEnricherVaultIntegration:
+    """Tests for the Pappers enricher's vault integration."""
+
+    @pytest.mark.asyncio
+    async def test_org_to_pappers_gets_api_key_from_vault(self, mock_vault, sketch_id):
+        """Test that org_to_pappers retrieves PAPPERS_API_KEY from vault."""
+        api_key = "pappers-api-key-12345"
+        mock_vault.get_secret.return_value = api_key
+
+        enricher = OrgToPappersEnricher(
+            sketch_id=sketch_id, scan_id="scan_123", vault=mock_vault, params={}
+        )
+
+        await enricher.async_init()
+
+        mock_vault.get_secret.assert_called()
+        calls = [call[0][0] for call in mock_vault.get_secret.call_args_list]
+        assert "PAPPERS_API_KEY" in calls
+        assert enricher.get_secret("PAPPERS_API_KEY") == api_key
+
+    @pytest.mark.asyncio
+    async def test_org_to_pappers_missing_required_secret_raises(self, mock_vault, sketch_id):
+        """Test that a missing PAPPERS_API_KEY raises during async_init."""
+        mock_vault.get_secret.return_value = None
+
+        enricher = OrgToPappersEnricher(
+            sketch_id=sketch_id, scan_id="scan_123", vault=mock_vault, params={}
+        )
+
+        with pytest.raises(Exception) as exc_info:
+            await enricher.async_init()
+
+        assert "PAPPERS_API_KEY" in str(exc_info.value)
+
+
+class TestOsintgramEnricherVaultIntegration:
+    """Tests for the Osintgram (HikerAPI) enricher's vault integration."""
+
+    @pytest.mark.asyncio
+    async def test_username_to_instagram_gets_token_from_vault(self, mock_vault, sketch_id):
+        """Test that username_to_instagram retrieves HIKERAPI_TOKEN from vault."""
+        token = "hikerapi-token-12345"
+        mock_vault.get_secret.return_value = token
+
+        enricher = UsernameToOsintgram(
+            sketch_id=sketch_id, scan_id="scan_123", vault=mock_vault, params={}
+        )
+
+        await enricher.async_init()
+
+        mock_vault.get_secret.assert_called()
+        calls = [call[0][0] for call in mock_vault.get_secret.call_args_list]
+        assert "HIKERAPI_TOKEN" in calls
+        assert enricher.get_secret("HIKERAPI_TOKEN") == token
+
+    @pytest.mark.asyncio
+    async def test_username_to_instagram_missing_required_secret_raises(
+        self, mock_vault, sketch_id
+    ):
+        """Test that a missing HIKERAPI_TOKEN raises during async_init."""
+        mock_vault.get_secret.return_value = None
+
+        enricher = UsernameToOsintgram(
+            sketch_id=sketch_id, scan_id="scan_123", vault=mock_vault, params={}
+        )
+
+        with pytest.raises(Exception) as exc_info:
+            await enricher.async_init()
+
+        assert "HIKERAPI_TOKEN" in str(exc_info.value)
 
 
 class TestVaultSecretWithUserProvidedID:

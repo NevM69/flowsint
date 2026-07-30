@@ -110,6 +110,9 @@ Tools/APIs: [Whoxy API](https://www.whoxy.com/api/)
 **org_to_infos**: Enrich organizations with French registry data and leaders.
 Tools/APIs: SIRENE (SireneTool) — see [INSEE Sirene API](https://api.insee.fr/catalogue/#/datasets/sirene)
 
+**org_to_pappers**: Enrich organizations with legal, financial, and beneficial ownership (bénéficiaires effectifs) data from Pappers (France only).
+Tools/APIs: [Pappers API](https://www.pappers.fr/api)
+
 **org_to_asn**: Find ASNs associated with an organization name.
 Tools/Pivots: [asnmap](https://github.com/projectdiscovery/asnmap) (CLI), [jq](https://jqlang.github.io/jq/) (CLI)
 
@@ -136,9 +139,15 @@ Tools/APIs: [DeHashed API](https://www.dehashed.com/docs)
 **username_to_device_hudsonrock**: Look up devices compromised by infostealers and associated with a username.
 Tools/APIs: [HudsonRock API](https://www.hudsonrock.com/)
 
+**username_to_instagram**: Get an Instagram profile (bio, follower counts, public contact info) for a username, via Osintgram/HikerAPI.
+Tools/APIs: [HikerAPI](https://hikerapi.com/) (used by [Osintgram](https://github.com/Datalux/Osintgram))
+
 ### Website
 **website_to_crawler**: Crawl a website to extract emails and phone numbers.
 Tools/APIs: ReconCrawlTool (`reconcrawl`)
+
+**website_to_torbot**: Crawl a `.onion` (or clearnet) page over Tor, discovering outbound links and public contact info, one level deep.
+Tools/Pivots: Tor SOCKS5 proxy, in the spirit of [TorBot](https://github.com/DedSecInside/TorBot)
 
 **website_to_domain**: Extract the domain name from a website URL.
 Tools/Pivots: internal URL parser
@@ -159,5 +168,6 @@ Tools/APIs: recontrack TrackingCodeExtractor
 
 Notes
 - Some enrichers optionally depend on docker binaries: `subfinder`, `asnmap`, `dnsx`, `naabu`, `httpx`, and `jq` which are installed in the docker container.
-- API-keyed enrichers read keys from params or environment (e.g., `HIBP_API_KEY`, `ETHERSCAN_API_KEY`, `WHOXY_API_KEY`, `WHOISXML_API_KEY`, `DEHASHED_API_KEY`, `SCAMALYTICS_API_KEY`, `VERIPHONE_API_KEY`, `C99_API_KEY`).
+- API-keyed enrichers read keys from params or environment (e.g., `HIBP_API_KEY`, `ETHERSCAN_API_KEY`, `WHOXY_API_KEY`, `WHOISXML_API_KEY`, `DEHASHED_API_KEY`, `SCAMALYTICS_API_KEY`, `VERIPHONE_API_KEY`, `C99_API_KEY`, `PAPPERS_API_KEY`, `HIKERAPI_TOKEN`).
+- `website_to_torbot` needs a running Tor daemon (SOCKS5 proxy, default `127.0.0.1:9050`) to reach `.onion` addresses; it can also be pointed at clearnet pages with `use_tor` disabled.
 - Internal/test enrichers (`domain_to_dummy`, `ip_to_dummy_domains`, `n8n_connector`) are not listed here — they exist in the codebase but are not part of the public catalog.
